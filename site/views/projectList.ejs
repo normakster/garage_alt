@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/fontawesome-all.css">
+  </head>
+  <body>
+    <div class="container">
+      <% include ./partials/nav %>
+      <%  let project = {}; %>
+        <a class="btn btn-primary" href="/garage/project/add">Add</a><br/><br/>
+         <% if (projects.length == 0) { %>
+
+           <h4> No projects to display. Add one above.</h4>
+         <%} else {%>
+          <% for(let i = 0; i < projects.length; i++) {
+              project = projects[i] %>
+              <% include ./partials/showproject %>
+          <% } %>
+        <% } %>
+      <p class="font-weight-light font-italic">Served by host: <%= hostname %></p>
+    </div> <!-- container -->
+  </body>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</html>

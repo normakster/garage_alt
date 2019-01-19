@@ -1,0 +1,14 @@
+docker-compose up --build --force-recreate
+docker-compose down --remove-orphans
+
+docker image build --rm -t garage_mongo .
+
+mongo:latest
+
+docker ps
+docker exec -it <container name> /bin/bash
+
+
+docker rmi $(docker images -a -q)
+docker rm $(docker ps -a -f status=exited -q)
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [container_id]

@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+        <% include ./partials/nav %>
+        <div class="card" style="width: 50%">
+        <form method="post" action="/garage/project/edit/" style="padding: 20px">
+            <div class="form-group">
+                <label for="title" class="text-primary">Title</label>
+                <input class="form-control" id="title" name="title" value="<%=project.title%>"></textarea>
+
+                <label for="detail" class="text-primary">Details</label>
+                <input class="form-control" id="detail" name="detail" value="<%=project.detail%>"></textarea>
+
+                <label for="priority" class="text-primary">Priority</label>
+                <select class="form-control" id="priority" name="priority">
+                    <% switch(project.priority) {
+                        case 'Normal': %>
+                            <option>Low</option>
+                            <option selected>Normal</option>
+                            <option>High</option>
+                        <% break; %>
+                        <% case 'High': %>
+                            <option>Low</option>
+                            <option>Normal</option>
+                            <option selected>High</option>
+                        <% break; %>
+                        <% case 'Low': %>
+                            <option selected>Low</option>
+                            <option>Normal</option>
+                            <option>High</option>
+                        <% break; %>
+                    <% } %>
+                </select>
+                <input id="_id" name="_id" type="hidden" value="<%=project._id%>">
+                <input id="gitUrl" name="gitUrl" type="hidden" value="<%=project.gitUrl%>">
+                <input id="isComplete" name="isComplete" type="hidden" value="<%=project.isComplete%>">
+                <!-- <label for="duedate" class="text-primary">Due Date:</label>
+                <input type="date" class="form-control" id="duedate" name="dueDate" value="<%=project.dueDate%>"> -->
+            </div>
+                <input type="submit" class="btn btn-primary" value="Save project">
+        </form>
+        </div>
+    </div> <!-- container -->
+  </body>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</html>

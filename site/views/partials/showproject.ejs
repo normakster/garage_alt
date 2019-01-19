@@ -1,0 +1,60 @@
+<div class="card border-primary" style="width: 50%">
+    <div class="card-header">
+      <div class="row">
+        <h5 class ="card-title"><%=project.title%></h5>
+        <div class="col-sm">
+          <% switch(project.priority) {
+              case 'Normal': %>
+              <span class="badge float-right badge-warning">Priority: Normal</span>
+              <% break; %>
+              <% case 'High': %>
+              <span class="badge float-right badge-danger">Priority: High</span>
+              <% break; %>
+              <% case 'Low': %>
+              <span class="badge float-right badge-success">Priority: Low</span>
+              <% break; %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+        <p class=""><%=project.detail%></p><!-- card-text -->
+    </div>
+    <div class="card-footer">
+        <div class = "row">
+            <div class = "col-sm">
+                <% if (project.isComplete == 'false') {%>
+                    <h4><span class="badge badge-secondary">Incomplete</span></h4>
+                <%} else { %>
+                    <h4><span class="badge badge-secondary">Complete</span></h4>
+                <%}%>
+            </div>
+            <div class = "col-sm">
+              <a class="btn btn-primary" href="/garage/project/edit/<%=project._id%>">edit</a><br/><br/>
+              <!-- <a class="btn btn-primary" href="/garage/project/delete/<%=project._id%>">delete</a><br/><br/> -->
+                <!-- <ul class="nav justify-content-end nav-pills card-header-pills">
+                    <% if (project.isComplete == 'false') {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/project/edit/<%=project._id%>"> <i class="fas fa-edit"></i></a>
+                        </li>
+                    <%}%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/project/delete/<%=project._id%>"> <i class="fas fa-trash-alt"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="/project/complete/<%=project._id%>">
+                            <button type="submit" class="btn btn-link">
+                                <% if (project.isComplete == 'false') {%>
+                                    <i class="fas fa-check"></i>
+                                <%} else { %>
+                                    <i class="fas fa-redo-alt"></i>
+                                <%}%>
+                            </button>
+                        </form>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+<p> <!-- card -->
