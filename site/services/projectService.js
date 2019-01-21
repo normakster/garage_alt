@@ -13,74 +13,74 @@ const debug = require('debug')('app:projectController');
 const apiUrl = 'http://back_end:3000/api/project/';
 
 
-// exports.list = async (req, res) => {
-//   var listOptions = {
-//     url: apiUrl,
-//     method: 'GET',
-//     headers:{
-//       'Accept':'application/json',
-//       'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
-//     }
-//   };
-//   try {
-//     // const listOptions = masterOptions;
-//     // options.method = 'GET';
-//     console.log(listOptions);
-//     return await request(listOptions, function (err, resp, body) {
-//       return body;
-//     });
-//   }
-//   catch (err) {
-//     debug(err);
-//   }
-// };
+exports.list = async (req, res) => {
+  var listOptions = {
+    url: apiUrl,
+    method: 'GET',
+    headers:{
+      'Accept':'application/json',
+      'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
+    }
+  };
+  try {
+    // const listOptions = masterOptions;
+    // options.method = 'GET';
+    console.log(listOptions);
+    return await request(listOptions, function (err, resp, body) {
+      return body;
+    });
+  }
+  catch (err) {
+    debug(err);
+  }
+};
 
-// exports.create = async (project) => {
-//   const url = apiUrl;
-//   console.log('Creating object: ' + project);
-//   const newProject = JSON.parse(project);
-//   try {
-//     request.post(url, {
-//         body: newProject,
-//         json: true
-//       },
-//       (error, res, body) => {
-//         if (error) {
-//           console.error(error);
-//           return
-//         }
-//         console.log(`statusCode: ${res.statusCode}`);
-//         // console.log(body);
-//       }).then(function(res) {
-//         res.redirect('/garage/project');
-//       });
-//   }
-//   catch (err) {
-//     debug(err);
-//   }
-// };
+exports.create = async (project) => {
+  const url = apiUrl;
+  console.log('Creating object: ' + project);
+  const newProject = JSON.parse(project);
+  try {
+    request.post(url, {
+        body: newProject,
+        json: true
+      },
+      (error, res, body) => {
+        if (error) {
+          console.error(error);
+          return
+        }
+        console.log(`statusCode: ${res.statusCode}`);
+        // console.log(body);
+      }).then(function(res) {
+        res.redirect('/garage/project');
+      });
+  }
+  catch (err) {
+    debug(err);
+  }
+};
 
-// exports.read = async (_id) => {
-//   var readOptions = {
-//     url: apiUrl,
-//     method: 'GET',
-//     headers:{
-//       'Accept':'application/json',
-//       'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
-//     }
-//   };
-//   try {
-//     // const readOptions = masterOptions;
-//     readOptions.url = readOptions.url + _id;
-//     return await request(readOptions, function (err, resp, body) {
-//       console.log('error: ' + err);
-//       return body;
-//     });
-//   }
-//   catch (err) {
-//     debug(err);
-//   }
-// };
+exports.read = async (_id) => {
+  var readOptions = {
+    url: apiUrl,
+    method: 'GET',
+    headers:{
+      'Accept':'application/json',
+      'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
+    }
+  };
+  try {
+    // const readOptions = masterOptions;
+    readOptions.url = readOptions.url + _id;
+    return await request(readOptions, function (err, resp, body) {
+      console.log('error: ' + err);
+      return body;
+    });
+  }
+  catch (err) {
+    debug(err);
+  }
+};
 
 exports.update = async (project) => {
   var updateOptions = {

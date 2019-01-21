@@ -1,7 +1,8 @@
+'use strict';
 const util = require('./utilController');
 const debug = require('debug')('app:projectController');
-var mongoose = require('mongoose');
-var Project = require('../models/Project');
+const mongoose = require('mongoose');
+const Project = require('../models/project');
 
 var projects = {};
 var project = "";
@@ -19,12 +20,17 @@ exports.list = async (req, res) => {
   }
   };
 
-exports.create = async  (req, res) => {
+exports.create = async  (req, resp) => {
     // console.log(req.body);
-    Project.create( req.body, (err, project) => {
-      if (err) return res.status(500).send("There was a problem adding the information to the database.");
-      return res.status(200).send(project);
-    });
+    try{
+      await Project.create( req.body, (err, project) => {
+        if (err) return resp.status(500).send("There was a problem adding the information to the database.");
+        return resp.status(200).send(project);
+      });
+    }
+    catch (err) {
+      debug(err);
+    }
   };
 
 exports.read = async  (req, res) => {
