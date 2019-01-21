@@ -24,8 +24,6 @@ services:
       - backend
     environment:
       - DEBUG=app:*
-    volumes:
-      - ./site:/opt/app
 
   back_end:
     image: garage-rest:latest
@@ -34,12 +32,12 @@ services:
     container_name: back_end
     ports:
       - "8081:3000"
+    depends_on:
+      - "db"
     networks:
       - backend
     environment:
       - DEBUG=app:*
-    volumes:
-      - ./rest:/opt/app
 
 networks:
   frontend:

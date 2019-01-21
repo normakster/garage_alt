@@ -1,10 +1,12 @@
 FROM node:alpine
 
-WORKDIR /opt/app
+#RUN mkdir -p /opt/app
+#COPY package.json /opt/app/package.json
+#RUN cd /opt/app && npm install
 
-RUN npm install
+WORKDIR /opt/app
+#COPY . /opt/app
 
 EXPOSE 3000
 
 ENTRYPOINT [ "npm", "start" ]
-#ENTRYPOINT [ "node", "./bin/www" ]
