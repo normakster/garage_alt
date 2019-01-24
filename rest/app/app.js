@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var debug = require('debug')('app');
 
 // const Router = require('./routes/Routes');
-const config = require('./config.js');
+const config = require('../config/config.js');
 const util = require('./controllers/utilController');
 // const projectController = require('./controllers/projectController');
 const projectRouter = require('./routes/projectRouter');
