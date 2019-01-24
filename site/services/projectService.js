@@ -29,9 +29,34 @@ exports.list = async (req, res) => {
     return await request(listOptions, function (err, resp, body) {
       return body;
     });
+
   }
   catch (err) {
     debug(err);
+  }
+};
+
+exports.read = async (_id) => {
+  console.log('In projectService');
+  var readOptions = {
+    url: apiUrl,
+    method: 'GET',
+    headers:{
+      'Accept':'application/json',
+      'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
+    }
+  };
+  try {
+    // const readOptions = masterOptions;
+    readOptions.url = readOptions.url + _id;
+    return await request(readOptions, function (err, resp, body) {
+      console.log('error: ' + err);
+      console.log('body: ' + body);
+      return body;
+    });
+  }
+  catch (error) {
+    debug(error);
   }
 };
 
@@ -54,28 +79,6 @@ exports.create = async (project) => {
       }).then(function(res) {
         res.redirect('/garage/project');
       });
-  }
-  catch (err) {
-    debug(err);
-  }
-};
-
-exports.read = async (_id) => {
-  var readOptions = {
-    url: apiUrl,
-    method: 'GET',
-    headers:{
-      'Accept':'application/json',
-      'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
-    }
-  };
-  try {
-    // const readOptions = masterOptions;
-    readOptions.url = readOptions.url + _id;
-    return await request(readOptions, function (err, resp, body) {
-      console.log('error: ' + err);
-      return body;
-    });
   }
   catch (err) {
     debug(err);

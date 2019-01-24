@@ -8,7 +8,7 @@ const apiUrl = 'http://back_end:3000/api/project/';
 var projects = [];
 
 
-exports.showProjects = async function (req, res) {
+exports.showProjects = function (req, res, next) {
   try {
     // var listOptions = {
     //   url: apiUrl,
@@ -23,8 +23,21 @@ exports.showProjects = async function (req, res) {
     //   return body;
     // }));
 
-    projects = JSON.parse(await Service.list());
-    res.render('projectList', { projects: projects, title: 'Project List', hostname });
+    // projects = JSON.parse(await Service.list());
+    // res.render('projectList', { projects: projects, title: 'Project List', hostname });
+
+    Service.list().then(function(results){
+      // if(err) {
+      //   console.log('Error: '+err);
+      //   return next(err);
+      // }
+      // console.log('Results: '+results);
+      if(results == null) {
+        res.redirect('/');
+      }
+      projects = JSON.parse(results);
+      res.render('projectList', { projects: projects, title: 'Project List', hostname });
+    });
   }
   catch (err) {
     debug(err);
@@ -35,7 +48,8 @@ exports.addProject = (req, res) => {
   res.render('addProject', { title: 'Adding a Project' });
 };
 
-exports.create = async function (req, res, err) {
+// exports.create = async function (req, res, err) {
+exports.create = function (req, res, next) {
   try {
     console.log('Sending new Object: ' + JSON.stringify(req.body));
     //
@@ -57,16 +71,21 @@ exports.create = async function (req, res, err) {
     //     res.redirect('/garage/project');
     //   });
 
-    await Service.create(JSON.stringify(req.body));
-    // console.log(JSON.stringify());
-    res.redirect('/garage/project/');
+    // await Service.create(JSON.stringify(req.body));
+    // // console.log(JSON.stringify());
+    // res.redirect('/garage/project/');
+
+    Service.create(JSON.stringify(req.body)).then(function(){
+      res.redirect('/garage/project/');
+    });
   }
   catch (err) {
     debug(err);
   }
 };
 
-exports.getProject = async function (req, res, err) {
+// exports.getProject = async function (req, res, err) {
+exports.getProject = function (req, res, next) {
   try {
     // var readOptions = {
     //   url: apiUrl,
@@ -82,18 +101,36 @@ exports.getProject = async function (req, res, err) {
     //   return body;
     // }));
 
-    project = JSON.parse(await Service.read(req.params._id));
-    res.render('editProject', { project: project, title: 'Save Changes' });
+    // project = JSON.parse(await Service.read(req.params._id));
+    // res.render('editProject', { project: project, title: 'Save Changes' });
+
+    Service.read(req.params._id).then(function(results){
+      console.log('In projectController');
+      console.log('Results: '+results);
+      if(results == null) {
+        res.redirect('/garage/project/');
+      }
+      project = JSON.parse(results);
+      res.render('editProject', { project: project, title: 'Save Changes' });
+    });
+    // .catch(error) => {
+    //   debug(error);
+    // }
   }
   catch (err) {
     debug(err);
   }
 };
 
-exports.commitEdit = async function (req, res, err) {
+exports.commitEdit = function (req, res, next) {
   try {
-    console.log(JSON.stringify(await Service.update(JSON.stringify(req.body))));
-    res.redirect('/garage/project/');
+    // console.log(req);
+    // console.log(JSON.stringify(await Service.update(JSON.stringify(req.body))));
+    // res.redirect('/garage/project/');
+
+    Service.update(JSON.stringify(req.body)).then(function(){
+      res.redirect('/garage/project/');
+    });
   }
   catch (err) {
     debug(err);
