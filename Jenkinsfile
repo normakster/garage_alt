@@ -23,11 +23,7 @@ pipeline {
       stage('Deploy') {
         steps {
             echo 'Deploying....'
-            try {
-              sh "docker-compose -f docker-compose.yml up"
-            } catch(error){
-              echo "The server could not be reached ${error}"
-            }
+            sh "docker-compose -f docker-compose.yml up"
         }
       }
     }
