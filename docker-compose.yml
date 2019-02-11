@@ -3,7 +3,9 @@ version: "3.3"
 services:
   jenkins:
     image: garage-jenkins:latest
-    build: ./jenkins
+    build:
+        context: ./jenkins
+        dockerfile: dockerfile
     container_name: jenkins
     ports:
       - "8080:8080"
@@ -15,7 +17,9 @@ services:
       #- /var/run/docker.sock:/var/run/docker.sock
   db:
     image: garage-db_mongo:latest
-    build: ./db
+    build:
+        context: ./db
+        dockerfile: dockerfile
     container_name: db
     ports:
       - "27017:27017"
@@ -25,22 +29,11 @@ services:
       - type: volume
         source: dbdata
         target: /data/db
-  front_end:
-    image: garage-site:latest
-    build: ./site
-    command: npm start
-    container_name: front_end
-    ports:
-      - "81:3000"
-    networks:
-      - isolated_garage
-    environment:
-      - DEBUG=app:*
-    volumes:
-      - ./site:/opt/app
   back_end:
     image: garage-rest:latest
-    build: ./rest
+    build:
+        context: ./rest
+        dockerfile: dockerfile
     command: npm start
     container_name: back_end
     ports:
@@ -51,6 +44,21 @@ services:
       - DEBUG=app:*
     volumes:
       - ./rest:/opt/app
+  front_end:
+    image: garage-site:latest
+    build:
+        context: ./site
+        dockerfile: dockerfile
+    command: npm start
+    container_name: front_end
+    ports:
+      - "81:3000"
+    networks:
+      - isolated_garage
+    environment:
+      - DEBUG=app:*
+    volumes:
+      - ./site:/opt/app
 volumes:
   dbdata:
   jenkins-data:
