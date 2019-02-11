@@ -95,7 +95,7 @@ exports.update = async (project) => {
     }
   };
   // console.log('Trying to update: ' + JSON.stringify(project));
-  console.log('Trying to update: ' + project);
+  console.log('Trying to update: ' + JSON.stringify(project));
   try {
     // const updateOptions = masterOptions;
     updateOptions.url = updateOptions.url + project._id;
@@ -113,41 +113,25 @@ exports.update = async (project) => {
 };
 
 exports.delete = async (project) => {
-  // var deleteOptions = {
-  //   url: apiUrl,
-  //   method: 'POST',
-  //   headers:{
-  //     'Accept':'application/json',
-  //     'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
-  //   }
-  // };
-  console.log(project);
+  var deleteOptions = {
+    url: apiUrl,
+    method: 'DELETE',
+    headers:{
+      'Accept':'application/json',
+      'Accept-Language':'en-GB,en-US;q=0.8,en;q=0.6'
+    }
+  };
+  var _id = JSON.parse(project)._id;
+  // console.log("deleteOptions _id: " + _id);
   try {
-    // request.post(url + project._id, (error, res, body) => {
-    //   if (error) {
-    //     console.error(error)
-    //     return
-    //   }
-    //   console.log(`statusCode: ${res.statusCode}`)
-    //   console.log(body)
-    // });
-    // res.redirect('/garage/project');
-
-
-    request.post((apiUrl + project._id), {
-        body: project,
-        json: true
-      },
-      (error, res, body) => {
-        if (error) {
-          console.error(error);
-          return
-        }
-        console.log(`statusCode: ${res.statusCode}`);
-        // console.log(body);
-      }).then(function(res) {
-        res.redirect('/garage/project');
-      });
+    deleteOptions.url = deleteOptions.url + _id;
+    // deleteOptions.url = deleteOptions.url + "delete/"+ _id;
+    console.log(deleteOptions);
+    return await request(deleteOptions, function ( err, resp, body) {
+      console.log('error: ' + err);
+      console.log('results body: ' + body);
+      return body;
+    });
   }
   catch (err) {
     debug(err);

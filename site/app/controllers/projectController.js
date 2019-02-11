@@ -128,6 +128,7 @@ exports.commitEdit = function (req, res, next) {
     // console.log(JSON.stringify(await Service.update(JSON.stringify(req.body))));
     // res.redirect('/garage/project/');
 
+    console.log("Body:  "+JSON.stringify(req.body));
     Service.update(JSON.stringify(req.body)).then(function(){
       res.redirect('/garage/project/');
     });
@@ -139,8 +140,12 @@ exports.commitEdit = function (req, res, next) {
 
 exports.confirmDelete = async function (req, res, err) {
   try {
-    console.log(JSON.stringify(await Service.delete(JSON.stringify(req.body))));
-    res.redirect('/garage/project/');
+    console.log("Body:  "+JSON.stringify(req.body));
+    Service.delete(JSON.stringify(req.body)).then(function(){
+      res.redirect('/garage/project/');
+    });
+    // console.log(JSON.stringify(await Service.delete(JSON.stringify(req.body))));
+    // res.redirect('/garage/project/');
   }
   catch (err) {
     debug(err);
